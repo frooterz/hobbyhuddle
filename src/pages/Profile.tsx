@@ -5,6 +5,8 @@ import HobbyBadge from "@/components/HobbyBadge";
 import PixelButton from "@/components/PixelButton";
 import Navbar from "@/components/Navbar";
 import { toast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { PlusCircle } from "lucide-react";
 
 // List of available hobbies
 const allHobbies = [
@@ -20,6 +22,7 @@ const ProfilePage = () => {
   const [location, setLocation] = useState("Your City, State");
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>(["Gaming", "Hiking"]);
   const [isEditing, setIsEditing] = useState(false);
+  const [customHobby, setCustomHobby] = useState("");
   
   const toggleHobby = (hobby: string) => {
     if (selectedHobbies.includes(hobby)) {
@@ -35,6 +38,38 @@ const ProfilePage = () => {
         });
       }
     }
+  };
+  
+  const addCustomHobby = () => {
+    if (!customHobby.trim()) {
+      toast({
+        title: "Empty Hobby",
+        description: "Please enter a hobby name",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    if (selectedHobbies.includes(customHobby)) {
+      toast({
+        title: "Duplicate Hobby",
+        description: "This hobby is already in your list",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    if (selectedHobbies.length >= 5) {
+      toast({
+        title: "Maximum Hobbies Reached",
+        description: "You can select up to 5 hobbies.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    setSelectedHobbies(prev => [...prev, customHobby]);
+    setCustomHobby("");
   };
   
   const handleSave = () => {
@@ -127,16 +162,50 @@ const ProfilePage = () => {
             <h3 className="font-pixel text-sm mb-3 text-game-black">MY HOBBIES</h3>
             
             {isEditing ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                {allHobbies.map(hobby => (
-                  <HobbyBadge
-                    key={hobby}
-                    hobby={hobby}
-                    active={selectedHobbies.includes(hobby)}
-                    onClick={() => toggleHobby(hobby)}
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
+                  {allHobbies.map(hobby => (
+                    <HobbyBadge
+                      key={hobby}
+                      hobby={hobby}
+                      active={selectedHobbies.includes(hobby)}
+                      onClick={() => toggleHobby(hobby)}
+                    />
+                  ))}
+                </div>
+                
+                <div className="flex gap-2 mb-4">
+                  <Input
+                    type="text"
+                    value={customHobby}
+                    onChange={(e) => setCustomHobby(e.target.value)}
+                    placeholder="Add custom hobby"
+                    className="pixel-input flex-1"
+                    onKeyDown={(e) => e.key === 'Enter' && addCustomHobby()}
                   />
-                ))}
-              </div>
+                  <PixelButton
+                    variant="primary"
+                    onClick={addCustomHobby}
+                    className="px-3"
+                  >
+                    <PlusCircle className="w-5 h-5" />
+                  </PixelButton>
+                </div>
+                
+                <div className="mb-2">
+                  <h4 className="font-pixel text-xs mb-2 text-game-black">SELECTED VIBES ({selectedHobbies.length}/5)</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedHobbies.map(hobby => (
+                      <HobbyBadge
+                        key={hobby}
+                        hobby={hobby}
+                        active
+                        onClick={() => toggleHobby(hobby)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </>
             ) : (
               <div className="flex flex-wrap gap-2">
                 {selectedHobbies.map(hobby => (
