@@ -28,13 +28,37 @@ const matchedProfiles: UserProfile[] = [
   }
 ];
 
+// Get liked profiles from localStorage if available
+const getLikedProfiles = (): UserProfile[] => {
+  try {
+    const storedLikes = localStorage.getItem('likedProfiles');
+    if (storedLikes) {
+      return JSON.parse(storedLikes);
+    }
+  } catch (error) {
+    console.error("Error loading liked profiles", error);
+  }
+  return [];
+};
+
 const MatchesPage = () => {
+  // Combine mock profiles with any liked profiles from localStorage
   const [matches, setMatches] = useState<UserProfile[]>([]);
   const navigate = useNavigate();
   
   useEffect(() => {
     // In a real app, this would be a fetch call to an API
-    setMatches(matchedProfiles);
+    const likedProfiles = getLikedProfiles();
+    // Combine stored likes with mock data, avoiding duplicates
+    const combinedProfiles = [...matchedProfiles];
+    
+    likedProfiles.forEach(profile => {
+      if (!combinedProfiles.some(p => p.id === profile.id)) {
+        combinedProfiles.push(profile);
+      }
+    });
+    
+    setMatches(combinedProfiles);
   }, []);
   
   const handleMessage = (id: string) => {
@@ -49,6 +73,18 @@ const MatchesPage = () => {
   const handlePass = (id: string) => {
     // Remove the match from the list
     setMatches(prev => prev.filter(match => match.id !== id));
+    
+    // Also remove from localStorage if it exists there
+    try {
+      const storedLikes = localStorage.getItem('likedProfiles');
+      if (storedLikes) {
+        const likedProfiles = JSON.parse(storedLikes);
+        const updatedLikes = likedProfiles.filter((profile: UserProfile) => profile.id !== id);
+        localStorage.setItem('likedProfiles', JSON.stringify(updatedLikes));
+      }
+    } catch (error) {
+      console.error("Error updating liked profiles", error);
+    }
   };
   
   return (

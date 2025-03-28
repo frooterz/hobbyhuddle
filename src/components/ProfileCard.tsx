@@ -62,10 +62,10 @@ const ProfileCard = ({
   
   return (
     <div 
-      className={`pixel-card-vertical w-full max-w-[250px] mx-auto transition-all duration-500 bg-[#DEDEDE]
+      className={`pixel-card-vertical w-full max-w-[250px] mx-auto transition-all duration-500 bg-[#DEDEDE] flex flex-col
         ${isAnimating ? `transform ${direction === 'right' ? 'translate-x-full opacity-0' : 'translate-x-[-100%] opacity-0'}` : ''}`}
     >
-      <div className="flex flex-col items-center gap-4 mt-10 mb-4">
+      <div className="flex flex-col items-center gap-4 mt-6 mb-3">
         <PixelAvatar 
           src={profile.avatar} 
           alt={profile.name} 
@@ -79,13 +79,13 @@ const ProfileCard = ({
         </div>
       </div>
       
-      <div className="mb-4 text-center">
-        <p className="text-xs mb-2 text-vibe-black font-medium">{profile.bio}</p>
+      <div className="mb-3 text-center px-2">
+        <p className="text-xs text-vibe-black font-medium">{profile.bio}</p>
       </div>
       
-      <div className="mt-auto mb-4">
+      <div className="flex-grow flex flex-col justify-end mb-6">
         <h4 className="font-pixel text-xs mb-2 text-vibe-black text-center">VIBES</h4>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2 px-2">
           {profile.hobbies.map(hobby => (
             <HobbyBadge key={hobby} hobby={hobby} active />
           ))}
@@ -93,7 +93,7 @@ const ProfileCard = ({
       </div>
       
       {showActions && (
-        <div className="flex justify-center gap-6 mt-auto">
+        <div className="flex justify-center gap-6 mb-6 mt-auto">
           <PixelButton
             variant="danger"
             onClick={handlePass}
@@ -113,7 +113,7 @@ const ProfileCard = ({
       )}
       
       {showConnect && (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mb-6">
           <PixelButton
             variant="primary"
             onClick={handleMessage}
