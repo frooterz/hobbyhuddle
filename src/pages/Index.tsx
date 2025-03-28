@@ -88,7 +88,7 @@ const DiscoverPage = () => {
   return (
     <div className="min-h-screen bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAXSURBVDiNY/z//z8DNYCJgUbAaCANDQQAE4kMGO4wIRQAAAAASUVORK5CYII=')] bg-repeat">
       <header className="py-6 text-center">
-        <h1 className="font-pixel text-2xl text-game-black">HobbyHive</h1>
+        <h1 className="font-pixel text-2xl text-game-black">VibeMatch</h1>
         <p className="text-sm mt-2">Find friends who share your hobbies!</p>
       </header>
       
@@ -100,7 +100,7 @@ const DiscoverPage = () => {
             onPass={handlePass}
           />
         ) : (
-          <div className="pixel-card flex flex-col items-center justify-center p-8">
+          <div className="pixel-card flex flex-col items-center justify-center p-8 bg-[#DEDEDE]">
             <h2 className="font-pixel text-xl text-game-black mb-4">No more profiles!</h2>
             <p className="text-center mb-6">We've run out of people to show you. Check back later!</p>
             <div className="animate-bounce-slight">

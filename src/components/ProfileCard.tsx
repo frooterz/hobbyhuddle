@@ -62,13 +62,9 @@ const ProfileCard = ({
   
   return (
     <div 
-      className={`pixel-card-vertical w-full max-w-[250px] mx-auto transition-all duration-500 
+      className={`pixel-card-vertical w-full max-w-[250px] mx-auto transition-all duration-500 bg-[#DEDEDE]
         ${isAnimating ? `transform ${direction === 'right' ? 'translate-x-full opacity-0' : 'translate-x-[-100%] opacity-0'}` : ''}`}
     >
-      <div className="absolute top-2 left-2 font-pixel text-2xl text-vibe-white">
-        {profile.id}
-      </div>
-      
       <div className="flex flex-col items-center gap-4 mt-10 mb-4">
         <PixelAvatar 
           src={profile.avatar} 

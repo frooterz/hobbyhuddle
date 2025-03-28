@@ -110,7 +110,7 @@
   }
   
   .pixel-card-vertical {
-    @apply bg-vibe-blue-light rounded-none pixel-borders p-4 flex flex-col relative aspect-[3/5];
+    @apply rounded-none pixel-borders p-4 flex flex-col relative aspect-[3/5] w-[250px] h-[400px];
   }
   
   .pixel-btn {

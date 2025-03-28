@@ -52,10 +52,10 @@ const MatchesPage = () => {
   };
   
   return (
-    <div className="min-h-screen bg-vibe-teal-dark">
+    <div className="min-h-screen bg-white">
       <header className="py-6 text-center">
-        <h1 className="font-pixel text-2xl text-white">Your Matches</h1>
-        <p className="text-sm mt-2 text-white">People who share your vibes</p>
+        <h1 className="font-pixel text-2xl text-vibe-black">Your Matches</h1>
+        <p className="text-sm mt-2 text-vibe-black">People who share your vibes</p>
       </header>
       
       <main className="px-4 pb-24 pt-4 max-w-md mx-auto">
@@ -73,7 +73,7 @@ const MatchesPage = () => {
               />
             ))
           ) : (
-            <div className="pixel-card flex flex-col items-center justify-center p-8 col-span-full">
+            <div className="pixel-card flex flex-col items-center justify-center p-8 col-span-full bg-[#DEDEDE]">
               <h2 className="font-pixel text-xl text-vibe-black mb-4">No matches yet!</h2>
               <p className="text-center mb-6">Keep exploring profiles to find people who share your interests.</p>
               <div className="animate-pulse-pixel">
