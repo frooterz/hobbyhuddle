@@ -13,6 +13,7 @@ export type UserProfile = {
   avatar?: string;
   hobbies: string[];
   location: string;
+  level?: number;
 };
 
 type ProfileCardProps = {
@@ -61,24 +62,34 @@ const ProfileCard = ({
   
   return (
     <div 
-      className={`pixel-card w-full max-w-sm mx-auto transition-all duration-500 
+      className={`pixel-card-vertical w-full max-w-[250px] mx-auto transition-all duration-500 
         ${isAnimating ? `transform ${direction === 'right' ? 'translate-x-full opacity-0' : 'translate-x-[-100%] opacity-0'}` : ''}`}
     >
-      <div className="flex items-center gap-4 mb-4">
-        <PixelAvatar src={profile.avatar} alt={profile.name} size="lg" />
-        <div>
-          <h3 className="font-pixel text-lg text-game-black">{profile.name}, {profile.age}</h3>
-          <p className="text-sm mt-1">{profile.location}</p>
+      <div className="absolute top-2 left-2 font-pixel text-2xl text-vibe-white">
+        {profile.id}
+      </div>
+      
+      <div className="flex flex-col items-center gap-4 mt-10 mb-4">
+        <PixelAvatar 
+          src={profile.avatar} 
+          alt={profile.name} 
+          size="lg" 
+          level={profile.level || 1} 
+          showLevel={true} 
+        />
+        <div className="text-center">
+          <h3 className="font-pixel text-lg text-vibe-black">{profile.name}, {profile.age}</h3>
+          <p className="text-xs mt-1 text-vibe-black">{profile.location}</p>
         </div>
       </div>
       
-      <div className="mb-4">
-        <p className="text-sm mb-2">{profile.bio}</p>
+      <div className="mb-4 text-center">
+        <p className="text-xs mb-2 text-vibe-black font-medium">{profile.bio}</p>
       </div>
       
-      <div className="mb-6">
-        <h4 className="font-pixel text-sm mb-2 text-game-black">HOBBIES</h4>
-        <div className="flex flex-wrap gap-2">
+      <div className="mt-auto mb-4">
+        <h4 className="font-pixel text-xs mb-2 text-vibe-black text-center">VIBES</h4>
+        <div className="flex flex-wrap justify-center gap-2">
           {profile.hobbies.map(hobby => (
             <HobbyBadge key={hobby} hobby={hobby} active />
           ))}
@@ -86,7 +97,7 @@ const ProfileCard = ({
       </div>
       
       {showActions && (
-        <div className="flex justify-center gap-6">
+        <div className="flex justify-center gap-6 mt-auto">
           <PixelButton
             variant="danger"
             onClick={handlePass}
